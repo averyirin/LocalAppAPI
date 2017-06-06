@@ -25,14 +25,17 @@ namespace LocalAccountsApp.Controllers
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
+        ApplicationDbContext context;
 
         public AccountController()
         {
+            
         }
 
         public AccountController(ApplicationUserManager userManager,
             ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
         {
+            context = new ApplicationDbContext();
             UserManager = userManager;
             AccessTokenFormat = accessTokenFormat;
         }
