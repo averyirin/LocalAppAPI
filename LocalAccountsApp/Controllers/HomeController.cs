@@ -9,15 +9,10 @@ namespace LocalAccountsApp.Controllers
 {
     public class HomeController : Controller
     {
-        ApplicationDbContext context;
 
         public ActionResult Index()
         {
-
-            context = new ApplicationDbContext();
             ViewBag.Title = "Home Page";
-            ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin"))
-                                            .ToList(), "Name", "Name");
             return View();
         }
     }

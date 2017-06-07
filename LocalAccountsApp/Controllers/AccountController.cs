@@ -277,7 +277,9 @@ namespace LocalAccountsApp.Controllers
                 ClaimsIdentity identity = new ClaimsIdentity(claims, OAuthDefaults.AuthenticationType);
                 Authentication.SignIn(identity);
             }
-            if (User.Identity.IsAuthenticated)
+
+           /* Server side Redirection
+            *if (User.Identity.IsAuthenticated)
             {
                 var authUser = User.Identity;
                 ApplicationDbContext context = new ApplicationDbContext();
@@ -296,7 +298,8 @@ namespace LocalAccountsApp.Controllers
                     return Redirect(Url.Content("~/") + "accountantPortal/");
 
                 }
-            }
+            }*/
+
             return Ok();
         }
         /*
