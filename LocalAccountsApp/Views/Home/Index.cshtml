@@ -42,11 +42,15 @@
       </div>
 
         <div class="form-group">
-            @Html.Label("user Role", new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @*@Html.DropDownList("Name")*@
-                @Html.DropDownList("UserRoles", (SelectList)ViewBag.Name, " ")
-            </div>
+
+            <label>User Role</label>
+            <select class="form-control" name="UserRoles" data-bind="value:UserRoles">
+                <option disabled="disabled" selected="selected">Select an option.</option>
+                <option>Admin</option>
+                <option>Accountant</option>
+                <option>Client</option>
+            </select>
+            
         </div>   
       <div class="form-group">
         <button type="submit" class="btn btn-default">Register</button>

@@ -9,6 +9,7 @@
     self.registerEmail = ko.observable();
     self.registerPassword = ko.observable();
     self.registerPassword2 = ko.observable();
+    self.UserRoles = ko.observable();
 
     self.loginEmail = ko.observable();
     self.loginPassword = ko.observable();
@@ -64,7 +65,8 @@
         var data = {
             Email: self.registerEmail(),
             Password: self.registerPassword(),
-            ConfirmPassword: self.registerPassword2()
+            ConfirmPassword: self.registerPassword2(),
+            UserRoles: self.UserRoles()
         };
 
         $.ajax({
@@ -73,7 +75,7 @@
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function (data) {
-            self.result("Done!");
+            self.result("Registered!");
         }).fail(showError);
     }
 

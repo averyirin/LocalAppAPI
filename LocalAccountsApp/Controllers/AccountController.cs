@@ -257,7 +257,6 @@ namespace LocalAccountsApp.Controllers
                 externalLogin.ProviderKey));
 
 
-
             bool hasRegistered = user != null;
 
             if (hasRegistered)
@@ -278,7 +277,26 @@ namespace LocalAccountsApp.Controllers
                 ClaimsIdentity identity = new ClaimsIdentity(claims, OAuthDefaults.AuthenticationType);
                 Authentication.SignIn(identity);
             }
+            if (User.Identity.IsAuthenticated)
+            {
+                var authUser = User.Identity;
+                ApplicationDbContext context = new ApplicationDbContext();
+                var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+                var s = UserManager.GetRoles(authUser.GetUserId());
+                if (s[0].ToString() == "Admin")
+                {
+                    return Redirect(Url.Content("~/") + "adminPortal/");
+                }
+                else if (s[0].ToString() == "Client")
+                {
+                    return Redirect(Url.Content("~/") + "clientPortal/");
+                }
+                else if (s[0].ToString() == "Accountant")
+                {
+                    return Redirect(Url.Content("~/") + "accountantPortal/");
 
+                }
+            }
             return Ok();
         }
         /*
@@ -344,6 +362,7 @@ namespace LocalAccountsApp.Controllers
         }
 
         // POST api/Account/Register
+        [HttpPost]
         [AllowAnonymous]
         [Route("Register")]
         public async Task<IHttpActionResult> Register(RegisterBindingModel model)
@@ -361,6 +380,15 @@ namespace LocalAccountsApp.Controllers
             {
                 return GetErrorResult(result);
             }
+
+            // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771   
+            // Send an email with this link   
+            // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);   
+            // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);   
+            // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");   
+            //Assign Role to user Here      
+            //Ends Here   
+            await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles);
 
             return Ok();
         }
