@@ -27,7 +27,7 @@ namespace LocalAccountsApp
             );
 
             // Enforce HTTPS
-            config.Filters.Add(new LocalAccountsApp.Filters.RequireHttpsAttribute());
+            //config.Filters.Add(new LocalAccountsApp.Filters.RequireHttpsAttribute());
         }
     }
 }

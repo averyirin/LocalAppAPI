@@ -74,7 +74,7 @@
             url: '/api/Account/Register',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)
-        }).done(function (data) {
+        }).done(function (data) {            
             self.result("Registered!");
         }).fail(showError);
     }
@@ -94,9 +94,32 @@
             url: '/Token',
             data: loginData
         }).done(function (data) {
-            self.user(data.userName);
+
             // Cache the access token in session storage.
             sessionStorage.setItem(tokenKey, data.access_token);
+            console.log(data.userRole);
+            var userRoleArray = JSON.parse(data.userRole);
+            if (userRoleArray.length > 1) {
+                //direct to multi portal view of which portal to enter
+                if (userRoleArray.contains("Accountant") && userRoleArray.contains("Client")) {
+                    //redirect to accountant/client portal selection page
+
+                }
+            } else {
+                //go to single portal
+                if (userRoleArray[0] == "Admin") {
+                    window.location.href = "http://www.google.com";
+                } else if (userRoleArray[0] == "Accountant") {
+                    window.location.href = "http://stackoverflow.com";
+                } else if (userRoleArray[0] == "Client") {
+                    window.location.href = "http://facebook.com";
+                }
+            } 
+            
+
+            self.user(data.userName);
+
+
         }).fail(showError);
     }
 
