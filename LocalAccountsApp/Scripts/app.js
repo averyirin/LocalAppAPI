@@ -78,6 +78,7 @@
             self.result("Registered!");
         }).fail(showError);
     }
+    
 
     self.login = function () {
         self.result('');

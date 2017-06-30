@@ -39,6 +39,7 @@ namespace LocalAccountsApp
                 Provider = new ApplicationOAuthProvider(PublicClientId),
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
+                //SSL HTTPS
                 AllowInsecureHttp = true
             };
 

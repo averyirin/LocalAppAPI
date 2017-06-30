@@ -277,29 +277,6 @@ namespace LocalAccountsApp.Controllers
                 ClaimsIdentity identity = new ClaimsIdentity(claims, OAuthDefaults.AuthenticationType);
                 Authentication.SignIn(identity);
             }
-
-           /* Server side Redirection
-            *if (User.Identity.IsAuthenticated)
-            {
-                var authUser = User.Identity;
-                ApplicationDbContext context = new ApplicationDbContext();
-                var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
-                var s = UserManager.GetRoles(authUser.GetUserId());
-                if (s[0].ToString() == "Admin")
-                {
-                    return Redirect(Url.Content("~/") + "adminPortal/");
-                }
-                else if (s[0].ToString() == "Client")
-                {
-                    return Redirect(Url.Content("~/") + "clientPortal/");
-                }
-                else if (s[0].ToString() == "Accountant")
-                {
-                    return Redirect(Url.Content("~/") + "accountantPortal/");
-
-                }
-            }*/
-
             return Ok();
         }
         /*
