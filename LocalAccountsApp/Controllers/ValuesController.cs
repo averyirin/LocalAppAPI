@@ -1,5 +1,7 @@
-﻿using System;
+﻿using LocalAccountsApp.Models;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -15,6 +17,14 @@ namespace LocalAccountsApp.Controllers
         {
             var userName = this.RequestContext.Principal.Identity.Name;
             return String.Format("Hello, {0}.", userName);
+        }
+        //GET api/listClients
+        public string ListClients() {
+            using (var context = new ApplicationDbContext())
+            {
+                var clients = context.Database.SqlQuery("SELECT * from dbo.Clients").ToList();
+                return clients;
+            }
         }
     }
 }
